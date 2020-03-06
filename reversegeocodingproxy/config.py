@@ -22,8 +22,6 @@ class DevelopmentConfig(BaseConfig):
     DEBUG = True
     TESTING = True
     ENV = "development"
-    # LOCAL_SERVER = "local"
-    # REMOTE_SERVER = "remote"
 
 
 class ProductionConfig(BaseConfig):
@@ -43,5 +41,4 @@ def configure_app(app):
     config_name = os.getenv("FLASK_CONFIGURATION", "default")
     app.config.from_object(config[config_name])
     app.config.from_pyfile("config.cfg")
-    # Configure Compressing
     Compress(app)
