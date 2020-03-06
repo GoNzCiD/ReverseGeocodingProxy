@@ -3,10 +3,13 @@ import os
 import requests
 from flask import jsonify, request, Blueprint, current_app
 
+from reversegeocodingproxy.cache import cache
+
 reverse = Blueprint('reverse', __name__)
 
 
 @reverse.route("/", methods=['GET'])
+@cache.cached(timeout=3600, query_string=True)
 def balance():
     local_server = os.getenv("LOCAL_SERVER", current_app.config.get('LOCAL_SERVER'))
     remote_server = os.getenv("REMOTE_SERVER", current_app.config.get('REMOTE_SERVER'))
